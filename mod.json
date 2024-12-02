@@ -14,7 +14,10 @@
 
 	"resources": {
 		"sprites": [ "./resources/*.png" ],
-		"files": [ "./resources/*.wav" ]
+		"files": [
+			"./resources/*.wav",
+			"./resources/shaders/*"
+		]
 	},
 
 	"links": { "source": "https://github.com/undefined06855/icon-ninja" },

@@ -1,4 +1,5 @@
 #include "Swipe.hpp"
+#include "utils/shaders.hpp"
 
 Swipe* Swipe::create(cocos2d::CCTexture2D* texture) {
     auto ret = new Swipe;
@@ -16,7 +17,7 @@ bool Swipe::init(cocos2d::CCTexture2D* texture) {
 
     m_texture = texture;
 
-    setShaderProgram(cocos2d::CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTexture));
+    setShaderProgram(cocos2d::CCShaderCache::sharedShaderCache()->programForKey(ninja::shaders::swipeShaderKey));
 
     scheduleUpdate();
     return true;
@@ -68,6 +69,13 @@ void Swipe::draw() {
 
     glVertexAttribPointer(cocos2d::kCCVertexAttrib_Position, 2, GL_FLOAT, GL_FALSE, 0, points.data());
     glVertexAttribPointer(cocos2d::kCCVertexAttrib_TexCoords, 2, GL_FLOAT, GL_FALSE, 0, texCoords.data());
+
+    // pass in colours for the swipe trail
+    unsigned int innerColLoc = glGetUniformLocation(m_program->getProgram(), "u_innerCol");
+    unsigned int outerColLoc = glGetUniformLocation(m_program->getProgram(), "u_outerCol");
+    geode::log::info("{} {}", innerColLoc, outerColLoc);
+    glUniform3f(innerColLoc, 1.f, 0, 1.f);
+    glUniform3f(outerColLoc, 0, 1.f, 1.f);
 
     glDrawArrays(GL_TRIANGLE_STRIP, 0, points.size());
 #ifndef GEODE_IS_MACOS
