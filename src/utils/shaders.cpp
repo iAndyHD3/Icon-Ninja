@@ -21,12 +21,12 @@ void loadShader(const char* vertexPath, const char* fragmentPath, const char* ke
     program->autorelease();
 
     program->addAttribute(kCCAttributeNamePosition, cocos2d::kCCVertexAttrib_Position);
-    // program->addAttribute(kCCAttributeNameColor, cocos2d::kCCVertexAttrib_Color); // not needed
+    // program->addAttribute(kCCAttributeNameColor, cocos2d::kCCVertexAttrib_Color); // not needed because its not used
     program->addAttribute(kCCAttributeNameTexCoord, cocos2d::kCCVertexAttrib_TexCoords);
     
     program->link();
     program->updateUniforms();
-    program->use();
+    program->use(); // does this break stuff?
 
     cocos2d::CCShaderCache::sharedShaderCache()->addProgram(program, key);
 

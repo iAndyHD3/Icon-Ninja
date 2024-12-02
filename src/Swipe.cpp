@@ -71,6 +71,7 @@ void Swipe::draw() {
     glVertexAttribPointer(cocos2d::kCCVertexAttrib_TexCoords, 2, GL_FLOAT, GL_FALSE, 0, texCoords.data());
 
     // pass in colours for the swipe trail
+    // m_program->getProgram seems to randomly crash?
     unsigned int innerColLoc = glGetUniformLocation(m_program->getProgram(), "u_innerCol");
     unsigned int outerColLoc = glGetUniformLocation(m_program->getProgram(), "u_outerCol");
     geode::log::info("{} {}", innerColLoc, outerColLoc);
